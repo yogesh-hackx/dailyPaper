@@ -17,14 +17,11 @@ class App extends React.Component {
 
         if (strPageNo.length === 1) strPageNo = 0 + strPageNo;
         this.setState({ currPage: strPageNo });
-        setTimeout(() => {
-            this.setState({ loading: false });
-        }, 2000);
     };
 
     componentDidMount() {
         let date = new Date();
-        this.setState({ day: date.getDate(), month: '0' + date.getMonth() });
+        this.setState({ day: date.getDate(), month: "0" + date.getMonth() });
     }
 
     render() {
@@ -37,7 +34,9 @@ class App extends React.Component {
                     <img
                         src={`https://epaperwmimg.amarujala.com/2020/${this.state.month}/${this.state.day}/al/${this.state.currPage}/hdimage.jpg`}
                         alt=""
+                        onLoad={() => this.setState({ loading: false })}
                     />
+                    {this.state.loading ? "Loading" : null}
                     <NavButtons change={this.pageChangeHandler} />
                 </div>
             </div>
