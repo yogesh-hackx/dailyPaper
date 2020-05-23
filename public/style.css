@@ -1,0 +1,9 @@
+.content {
+    text-align: center;
+}
+
+button {
+    padding: 20px;
+    margin: 10px;
+    background-color: rgb(147, 197, 230);
+}
