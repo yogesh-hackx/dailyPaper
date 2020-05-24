@@ -6,7 +6,7 @@ class App extends React.Component {
         currPage: "01",
         day: "23",
         month: "05",
-        loading: false,
+        loading: true,
     };
 
     pageChangeHandler = (inc) => {
@@ -25,19 +25,16 @@ class App extends React.Component {
     }
 
     render() {
-        console.log(this.state.loading);
         return (
             <div>
                 <div className="content">
-                    <NavButtons change={this.pageChangeHandler} />
-                    {this.state.loading ? "Loading" : null}
-                    <img
+                <NavButtons change={this.pageChangeHandler} loading={this.state.loading} />
+                    <img ref={this.scrollRef}
                         src={`https://epaperwmimg.amarujala.com/2020/${this.state.month}/${this.state.day}/al/${this.state.currPage}/hdimage.jpg`}
                         alt=""
                         onLoad={() => this.setState({ loading: false })}
                     />
-                    {this.state.loading ? "Loading" : null}
-                    <NavButtons change={this.pageChangeHandler} />
+                    <NavButtons change={this.pageChangeHandler} loading={this.state.loading} />
                 </div>
             </div>
         );
