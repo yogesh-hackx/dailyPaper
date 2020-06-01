@@ -35,8 +35,11 @@ class App extends React.Component {
 
     async componentDidMount() {
         let date = new Date();
+        let day = date.getDate();
+        day = day.toString();
+        day = day.length === 1 ? 0 + day : day;
         this.setState({
-            day: date.getDate(),
+            day,
             month: "0" + (date.getMonth() + 1),
         });
         let res = await fetch(
