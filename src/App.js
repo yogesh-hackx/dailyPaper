@@ -5,7 +5,7 @@ import {imageExists} from './utils/checkImageExists'
 class App extends React.Component {
     state = {
         currPage: "01",
-        totalPages: null,
+        totalPages: 10,
         day: "24",
         month: "05",
         loading: true,
@@ -25,16 +25,6 @@ class App extends React.Component {
         }
     };
 
-    getElementByXpath = (path, doc) => {
-        return doc.evaluate(
-            path,
-            doc,
-            null,
-            XPathResult.ANY_UNORDERED_NODE_TYPE,
-            null
-        );
-    };
-
     async componentDidMount() {
         let date = new Date();
         let day = date.getDate();
@@ -46,18 +36,17 @@ class App extends React.Component {
         this.setState({
             day,
             month,
+        }, () => {
+            this.checkNoOfPages()
         });
-        let res = await fetch(
-            `https://epaper.amarujala.com/almora/2020${this.state.month}${this.state.day}/01.html?ed_code=almora`
-        );
 
-        await this.checkNoOfPages()
 
     }
 
 
     checkNoOfPages = async () => {
-        for(let i=1; i<25; i++) {
+        // assuming the page range b/w 10-20 
+        for(let i=10; i<20; i++) {
             try {
                 let exists = await imageExists(`https://epaperwmimg.amarujala.com/2020/${this.validPageNoInStr(this.state.month)}/${this.validPageNoInStr(this.state.day)}/al/${this.validPageNoInStr(i)}/hdimage.jpg`)
                 if (!exists)
@@ -91,12 +80,14 @@ class App extends React.Component {
                         change={this.pageChangeHandler}
                         loading={this.state.loading}
                     />
-                    <img
-                        ref={this.scrollRef}
-                        src={`https://epaperwmimg.amarujala.com/2020/${this.state.month}/${this.state.day}/al/${this.state.currPage}/hdimage.jpg`}
-                        alt=""
-                        onLoad={() => this.setState({ loading: false })}
-                    />
+                    <div className="paper-image">
+                        <img
+                            ref={this.scrollRef}
+                            src={`https://epaperwmimg.amarujala.com/2020/${this.state.month}/${this.state.day}/al/${this.state.currPage}/hdimage.jpg`}
+                            alt=""
+                            onLoad={() => this.setState({ loading: false })}
+                        />
+                    </div>
                     <NavButtons
                         change={this.pageChangeHandler}
                         loading={this.state.loading}
