@@ -1,5 +1,6 @@
 import React from "react";
 import NavButtons from "./components/NavButtons";
+import {imageExists} from './utils/checkImageExists'
 
 class App extends React.Component {
     state = {
@@ -16,6 +17,7 @@ class App extends React.Component {
         if (pageInt <= this.state.totalPages && pageInt >= 1) {
             this.setState({ loading: true });
             let strPageNo = pageInt.toString();
+            console.log(strPageNo);
 
             if (strPageNo.length === 1) strPageNo = 0 + strPageNo;
 
@@ -38,29 +40,48 @@ class App extends React.Component {
         let day = date.getDate();
         day = day.toString();
         day = day.length === 1 ? 0 + day : day;
+        let month = (date.getMonth()+1).toString()
+        month = month.length === 1 ? 0 + month : month;
+
         this.setState({
             day,
-            month: "0" + (date.getMonth() + 1),
+            month,
         });
         let res = await fetch(
             `https://epaper.amarujala.com/almora/2020${this.state.month}${this.state.day}/01.html?ed_code=almora`
         );
-        let resStr = await res.text();
-        let parser = new DOMParser();
-        let doc = parser.parseFromString(resStr, "text/html");
-        console.log(doc.getElementById("edition_total_page"));
-        console.log(doc.textContent);
-        let scriptString = this.getElementByXpath("/html/body/script[14]", doc)
-            .singleNodeValue.innerHTML;
-        let totalIndex = scriptString.indexOf("totalPage");
-        let totalPageNo = parseInt(
-            scriptString.slice(totalIndex + 13, totalIndex + 15)
-        );
-        this.setState({
-            totalPages: totalPageNo,
-        });
-        console.log(scriptString.slice(totalIndex, totalIndex + 17));
+
+        await this.checkNoOfPages()
+
     }
+
+
+    checkNoOfPages = async () => {
+        for(let i=1; i<25; i++) {
+            try {
+                let exists = await imageExists(`https://epaperwmimg.amarujala.com/2020/${this.validPageNoInStr(this.state.month)}/${this.validPageNoInStr(this.state.day)}/al/${this.validPageNoInStr(i)}/hdimage.jpg`)
+                if (!exists)
+                    break;
+                this.setState({
+                    totalPages: i
+                })
+                
+            } catch (error) {
+                break;
+                
+            }
+
+        }
+
+    }
+
+    validPageNoInStr = (pageNo) => {
+        let strPageNo = pageNo.toString()
+        if (strPageNo.length === 1) strPageNo = 0 + strPageNo;
+        return strPageNo
+    }
+
+    
 
     render() {
         return (
