@@ -85,7 +85,7 @@ class App extends React.Component {
                             ref={this.scrollRef}
                             src={`https://epaperwmimg.amarujala.com/2020/${this.state.month}/${this.state.day}/al/${this.state.currPage}/hdimage.jpg`}
                             alt="newsimage"
-                            style="width:50%"
+                            
                             onLoad={() => this.setState({ loading: false })}
                         />
                     </div>
