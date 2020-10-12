@@ -3,7 +3,13 @@
     position: relative;
 }
 
-/* .paper-image {
-    width: 70vw;
-    margin: auto;
-} */
+ .paper-image {
+     margin-left: auto;
+     margin-right: auto;
+    
+} 
+.paper-image img{
+   
+    width: 100%;
+ 
+}
