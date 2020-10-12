@@ -4,8 +4,11 @@
 }
 
  .paper-image {
-     display: block;
-  margin-left: auto;
-  margin-right: auto;
+     margin-left: auto;
+     margin-right: auto;
+     height: 100px;
+     width: 100px;
+     float: left;
+     border-radius: 50%;
   
 } 
