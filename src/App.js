@@ -48,7 +48,7 @@ class App extends React.Component {
         // assuming the page range b/w 10-20 
         for(let i=10; i<20; i++) {
             try {
-                let exists = await imageExists(`https://epaperwmimg.amarujala.com/2020/${this.validPageNoInStr(this.state.month)}/${this.validPageNoInStr(this.state.day)}/al/${this.validPageNoInStr(i)}/hdimage.jpg`)
+                let exists = await imageExists(`https://epaperwmimg.amarujala.com/2021/${this.validPageNoInStr(this.state.month)}/${this.validPageNoInStr(this.state.day)}/al/${this.validPageNoInStr(i)}/hdimage.jpg`)
                 if (!exists)
                     break;
                 this.setState({
