@@ -83,7 +83,7 @@ class App extends React.Component {
                     <div className="paper-image">
                         <img
                             ref={this.scrollRef}
-                            src={`https://epaperwmimg.amarujala.com/2020/${this.state.month}/${this.state.day}/al/${this.state.currPage}/hdimage.jpg`}
+                            src={`https://epaperwmimg.amarujala.com/2021/${this.state.month}/${this.state.day}/al/${this.state.currPage}/hdimage.jpg`}
                             alt="newsimage"
                             
                             onLoad={() => this.setState({ loading: false })}
