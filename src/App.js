@@ -48,7 +48,7 @@ class App extends React.Component {
         // assuming the page range b/w 10-20 
         for(let i=10; i<20; i++) {
             try {
-                let exists = await imageExists(`https://epaperwmimg.amarujala.com/2021/${this.validPageNoInStr(this.state.month)}/${this.validPageNoInStr(this.state.day)}/al/${this.validPageNoInStr(i)}/hdimage.jpg`)
+                let exists = await imageExists(`https://epaperwmimg.amarujala.com/2022/${this.validPageNoInStr(this.state.month)}/${this.validPageNoInStr(this.state.day)}/al/${this.validPageNoInStr(i)}/hdimage.jpg`)
                 if (!exists)
                     break;
                 this.setState({
@@ -83,7 +83,7 @@ class App extends React.Component {
                     <div className="paper-image">
                         <img
                             ref={this.scrollRef}
-                            src={`https://epaperwmimg.amarujala.com/2021/${this.state.month}/${this.state.day}/al/${this.state.currPage}/hdimage.jpg`}
+                            src={`https://epaperwmimg.amarujala.com/2022/${this.state.month}/${this.state.day}/al/${this.state.currPage}/hdimage.jpg`}
                             alt="newsimage"
                             
                             onLoad={() => this.setState({ loading: false })}
